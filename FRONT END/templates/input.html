@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>Personality with Disorder Prediction</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="{% static 'layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+    <style>
+        .error-message {
+            color: red;
+            margin-bottom: 10px; /* Adjust the margin as needed */
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var textInput = document.forms["predictionForm"]["text"].value;
+
+            // Split the input text into words
+            var words = textInput.split(/\s+/);
+
+            // Check if the number of words is less than 40
+            if (words.length < 40) {
+                document.getElementById("error-message").innerHTML = "Error: Please enter the input in the correct format.";
+                return false;
+            } else {
+                // Clear any previous error message
+                document.getElementById("error-message").innerHTML = "";
+            }
+
+            // Check if the input contains only numbers
+            if (/^\d+$/.test(textInput)) {
+                document.getElementById("error-message").innerHTML = "Error: Please enter the correct text (non-numeric).";
+                return false;
+            } else {
+                // Clear any previous error message
+                document.getElementById("error-message").innerHTML = "";
+            }
+
+            if (textInput === "") {
+                document.getElementById("error-message").innerHTML = "Error: Please enter text before predicting.";
+                return false;
+            } else {
+                // Clear any previous error message
+                document.getElementById("error-message").innerHTML = "";
+            }
+        }
+    </script>
+</head>
+<body id="top">
+
+<div class="bgded overlay" style="background-image:url('{% static 'images/demo/backgrounds/01.jpg' %}');">
+    <div id="pageintro" class="hoc clear">
+        <article>
+            <h3 class="heading">Personality Prediction using Machine Learning</h3>
+            <p>Sentimental analysis is used to predict the personality using Machine learning</p>
+        </article>
+        <form name="predictionForm" action="{% url 'output' %}" method="POST" enctype="multipart/form-data" class="login100-form validate-form" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <ul class="nospace inline pushright">
+                <li>
+                    <!-- Display error message above the text box -->
+                    <div id="error-message" class="error-message"></div>
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <span class="label-input100">Text</span>
+                        <input class="input100" type="text" name="text" style="color: black;">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input">
+                        <span class="label-input100">Algorithm</span>
+                        <select class="input100" name="algo" style="color: black;">
+                            <option value='dt'>Decision Tree</option>
+                            <option value='rf'>Random Forest</option>
+                        </select>
+                    </div>
+                </li>
+                <footer>
+                    <button type="submit" class="btn" href="#">Predict</button>
+                </footer>
+            </ul>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

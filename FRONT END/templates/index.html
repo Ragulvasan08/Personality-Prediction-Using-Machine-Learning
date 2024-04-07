@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <title>Personality with Disorder Prediction</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="{% static 'layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<body id="top">
+    <div class="bgded overlay" style="background-image:url('{% static 'images/demo/backgrounds/01.jpg' %}');">
+        <div id="pageintro" class="hoc clear">
+            <article>
+                <h3 class="heading">Personality with Disorder Prediction using Machine Learning</h3>
+            
+                <form action="{% url 'input' %}" method="post" class="login100-form validate-form">
+                    {% csrf_token %}
+                    
+                    {% if error_message %}
+                        <p style="color: red;">{{ error_message }}</p>
+                    {% endif %}
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <span class="label-input100">Name</span>
+                        <input class="input100" type="text" name="name" style="color: black;" required>
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <span class="label-input100">Password</span>
+                        <input class="input100" type="password" name="password" style="color: black;" required>
+                        <span class="focus-input100"></span>
+                    </div>
+                    <br>
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">LOGIN</button>
+                    </div>
+                </form>
+
+            </article>
+        </div>
+    </div>
+    <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
+    <script src="{% static 'layout/scripts/jquery.min.js' %}"></script>
+    <script src="{% static 'layout/scripts/jquery.backtotop.js' %}"></script>
+    <script src="{% static 'layout/scripts/jquery.mobilemenu.js' %}"></script>
+</body>
+
+</html>
